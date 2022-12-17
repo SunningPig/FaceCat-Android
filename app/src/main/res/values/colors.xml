@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+
+    <color name="colorlogin_button">#EEB00F</color>
+
+
+    <color name="colorLoginEditText">#00000000</color>
+    <color name="colorlogin_text">#FF4081</color>
+
+    <color name="contents_text">#000000</color>
+    <color name="encode_view">#ffffff</color>
+    <color name="possible_result_points">#ffbd21</color>
+    <color name="result_minor_text">#c0c0c0</color>
+    <color name="result_points">#99cc00</color>
+    <color name="result_text">#ffffff</color>
+    <color name="result_view">#000000</color>
+    <color name="status_text">#ffffff</color>
+    <color name="viewfinder_mask">#50000000</color>
+    <color name="react">#ffffff</color>
+    <color name="scanLineColor">#ffffff</color>
+
+
+
+    <color name="orderFilter_bg">#13161A</color>
+    <color name="orderFilter_splitter">#1B2024</color>
+    <color name="orderFilter_headerText">#CBCBCB</color>
+    <color name="orderFilter_conditionHeaderText">#788091</color>
+    <color name="orderFilter_conditionText">#69717E</color>
+    <color name="orderFilter_hintText">#49515D</color>
+    <color name="orderFilter_selectBorder">#22282E</color>
+    <color name="orderFilter_selectedBorder">#B88913</color>
+
+    <color name="orderFilter_resetBtnBg">#1D242D</color>
+    <color name="orderFilter_completeBtnBg">#EEB00F</color>
+
+    <color name="orderFilter_tradePairBtnBg">#1D242D</color>
+
+
+</resources>
