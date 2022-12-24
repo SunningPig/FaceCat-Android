@@ -55,8 +55,9 @@ public class UIXmlEx extends FCUIXml {
 		FCNative inative = getNative();
 		int typeLen = type.length();
 		switch (typeLen){
+			case 4:
 			case 5:{
-				if (type.equals("input")) {
+				if (type.equals("input") || type.equals("text")) {
 					HashMap<String, String> attributes = getAttributes(node);
 					if (attributes.containsKey("type")) {
 						String inputType = attributes.get("type");
