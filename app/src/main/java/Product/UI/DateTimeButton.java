@@ -8,9 +8,14 @@ import java.util.ArrayList;
 import facecat.topin.core.*;
 import facecat.topin.btn.*;
 
-
+/**
+ * 日期按钮
+ */
 public class DateTimeButton extends FCButton
 {
+    /**
+     * 构造函数
+     */
     public DateTimeButton()
     {
 
@@ -18,20 +23,36 @@ public class DateTimeButton extends FCButton
 
     private String m_dateMode = "";
 
+    /**
+     * 获取日期模式
+     */
     public String getDateMode()
     {
         return m_dateMode;
     }
 
+    /**
+     * 设置日期模式
+     */
     public void setDateMode(String dateMode)
     {
         m_dateMode = dateMode;
     }
 
+    /**
+     * 获取类型
+     * @return
+     */
     public String getViewType(){
         return "SpinComboBox";
     }
 
+    /**
+     * 获取属性
+     * @param name 名称
+     * @param value 值
+     * @param type 类型
+     */
     public void getAttribute(final String name, RefObject<String> value, RefObject<String> type){
         if(name.equals("datemode"))
         {
@@ -44,6 +65,11 @@ public class DateTimeButton extends FCButton
         }
     }
 
+    /**
+     * 设置属性
+     * @param name 名称
+     * @param value 值
+     */
     public void setAttribute(final String name, final String value) {
         if (name.equals("datemode")) {
             setDateMode(value);
@@ -53,12 +79,21 @@ public class DateTimeButton extends FCButton
         }
     }
 
+    /**
+     * 获取所有属性
+     * @return 属性列表
+     */
     public ArrayList<String> getAttributeNames(){
         ArrayList<String> attributeNames = super.getAttributeNames();
         attributeNames.add("DateMode");
         return attributeNames;
     }
 
+    /**
+     * 重绘背景
+     * @param paint 绘图对象
+     * @param clipRect 裁剪区域
+     */
     public void onPaintBackground(FCPaint paint, FCRect clipRect)
     {
         String text = getText();

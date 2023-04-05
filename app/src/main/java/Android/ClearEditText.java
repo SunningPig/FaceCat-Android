@@ -21,6 +21,9 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import topin.facecat.FaceCat.R;
 
+/**
+ * 可以清除文本的输入框
+ */
 public class ClearEditText extends AppCompatEditText {
     //动画时长
     private final int ANIMATOR_TIME = 200;
@@ -28,8 +31,6 @@ public class ClearEditText extends AppCompatEditText {
     private final int INTERVAL = 5;
     //清除按钮宽度,单位DP
     private final int WIDTH_OF_CLEAR = 23;
-
-
     //间隔记录
     private int Interval;
     //清除按钮宽度记录
@@ -46,21 +47,40 @@ public class ClearEditText extends AppCompatEditText {
     //右边添加其他按钮时使用
     private int mRight = 0;
 
+    /**
+     * 构造函数
+     * @param context 上下文
+     */
     public ClearEditText(final Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * 构造函数
+     * @param context 上下文
+     * @param attrs 属性
+     */
     public ClearEditText(final Context context, final AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * 构造函数
+     * @param context 上下文
+     * @param attrs 属性
+     * @param defStyleAttr 样式属性
+     */
     public ClearEditText(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
+    /**
+     * 初始化
+     * @param context 上下文
+     */
     private void init(Context context) {
 
         //setSingleLine();这个方法不推荐写在代码中，原因请看博客尾部更新
@@ -72,6 +92,11 @@ public class ClearEditText extends AppCompatEditText {
 
     }
 
+    /**
+     * 适应大小
+     * @param widthMeasureSpec 宽度
+     * @param heightMeasureSpec 高度
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -80,6 +105,10 @@ public class ClearEditText extends AppCompatEditText {
 
     }
 
+    /**
+     * 重绘方法
+     * @param canvas
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -261,6 +290,11 @@ public class ClearEditText extends AppCompatEditText {
         return bitmap;
     }
 
+    /**
+     * 获取DPI
+     * @param dipValue
+     * @return
+     */
     public int dp2px(float dipValue) {
         final float scale = getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);

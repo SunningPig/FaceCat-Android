@@ -21,23 +21,30 @@ import org.w3c.dom.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * XML解析
+ */
 public class UIXmlEx extends FCUIXml {
+	/*
+	* XML字符串
+	 */
 	public String m_xmlStr;
 
+	/*
+	* 远程脚本
+	 */
 	public HashMap<String, String> m_remoteScripts = new HashMap<String, String>();
 
+	/*
+	* 新的视图
+	 */
 	public ArrayList<FCView> m_newViews = new ArrayList<FCView>();
 
-	private static boolean m_isClickRunning;
-
-	public static boolean isClickRunning() {
-		return m_isClickRunning;
-	}
-
-	public static void setIsClickRunning(boolean value) {
-		m_isClickRunning = value;
-	}
-
+	/**
+	 * 加载XML
+	 * @param xml XML文本
+	 * @param view 视图
+	 */
 	public void loadXml(String xml, FCView view) {
 		super.loadXml(xml, view);
 	}
@@ -99,6 +106,9 @@ public class UIXmlEx extends FCUIXml {
 	public void loadData() {
 	}
 
+	/*
+	* 额外解析
+	 */
 	public static HashMap<String, IOutReWrite> m_outReWrites = new HashMap<String, IOutReWrite>();
 
 	/**
@@ -178,39 +188,5 @@ public class UIXmlEx extends FCUIXml {
 		} catch (Exception ex) {
 			return null;
 		}
-	}
-
-	/// <summary>
-	/// 后退
-	/// </summary>
-	/// <returns></returns>
-	public boolean goBack() {
-		return false;
-	}
-
-	/// <summary>
-	/// 前进
-	/// </summary>
-	/// <returns></returns>
-	public boolean goForward() {
-		return false;
-	}
-
-	/// <summary>
-	/// 是否可以后退
-	/// </summary>
-	/// <returns></returns>
-	public boolean canGoBack()
-	{
-		return false;
-	}
-
-	/// <summary>
-	/// 是否可以前进
-	/// </summary>
-	/// <returns></returns>
-	public boolean canGoForward()
-	{
-		return false;
 	}
 }

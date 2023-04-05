@@ -26,32 +26,62 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+/*
+ * 设备对接
+ */
 public class AndroidHost extends FCHost implements Runnable
 {
+    /*
+     * 构造函数
+     */
     public AndroidHost()
     {
 
     }
 
+    /*
+     * 裁剪区域
+     */
     private ArrayList<Rect> m_clipBounds = new ArrayList<>();
 
+    /*
+     * 句柄
+     */
     public Handler m_handler;
 
+    /*
+     * 触摸位置
+     */
     private FCPoint m_mousePoint = new FCPoint();
 
+    /*
+     * 正在运行的秒表ID
+     */
     private ArrayList<Integer> m_runningTimerIDs = new ArrayList<>();
 
+    /*
+     * 线程状态
+     */
     public int m_threadState = 0;
 
+    /*
+     * 全部秒表
+     */
     private HashMap<Integer, AndroidTimer> m_timers = new HashMap<>();
 
     private boolean m_allowOperate = false;
 
+    /*
+     * 允许操作
+     */
     public final boolean allowOperate()
     {
         return m_allowOperate;
     }
 
+    /*
+     * 设置是否允许操作
+     */
     public final void setAllowOperate(boolean value)
     {
         m_allowOperate = value;
@@ -59,11 +89,17 @@ public class AndroidHost extends FCHost implements Runnable
 
     private boolean m_allowPartialPaint = true;
 
+    /*
+     * 是否允许局部绘图
+     */
     public final boolean allowPartialpaint()
     {
         return m_allowPartialPaint;
     }
 
+    /*
+     * 设置是否允许局部绘图
+     */
     public final void setAllowPartialPaint(boolean value)
     {
         m_allowPartialPaint = value;
@@ -71,11 +107,17 @@ public class AndroidHost extends FCHost implements Runnable
 
     private FCNative m_native = null;
 
+    /*
+     * 方法库
+     */
     public final FCNative getNative()
     {
         return m_native;
     }
 
+    /*
+     * 设置方法库
+     */
     public final void setNative(FCNative value)
     {
         m_native = value;
@@ -83,11 +125,17 @@ public class AndroidHost extends FCHost implements Runnable
 
     private View m_view = null;
 
+    /*
+     * 获取视图
+     */
     public final View getView()
     {
         return m_view;
     }
 
+    /*
+     * 设置视图
+     */
     public final void setView(View value)
     {
         m_view = value;
@@ -98,20 +146,35 @@ public class AndroidHost extends FCHost implements Runnable
 
     private boolean m_viewVisible = true;
 
+    /*
+     * 视图是否可见
+     */
     public final boolean isViewVisible()
     {
         return m_viewVisible;
     }
 
+    /*
+     * 设置视图是否可见
+     */
     public final void setViewVisible(boolean value)
     {
         m_viewVisible = value;
     }
 
+    /*
+     * 跨线程调用的视图
+     */
     public FCView m_control;
 
+    /*
+     *  跨线程调用传递的视图
+     */
     public Object m_args;
 
+    /*
+     * 开始跨线程调用
+     */
     public void beginInvoke(FCView control, Object args)
     {
         synchronized (this) {
@@ -126,8 +189,14 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 剪贴板
+     */
     private ClipboardManager m_clipboard;
 
+    /*
+     * 复制到剪贴板
+     */
     public final void copy(String text) {
         if(m_clipboard == null) {
             m_clipboard = (ClipboardManager) m_view.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -136,6 +205,11 @@ public class AndroidHost extends FCHost implements Runnable
         m_clipboard.setPrimaryClip(clipData);
     }
 
+    /*
+     * 创建内部视图
+     * parent 父视图
+     * clsid ID
+     */
     public final FCView createInternalView(FCView parent, String clsid)
     {
         FCSplitLayoutDiv splitLayoutDiv = (FCSplitLayoutDiv) ((parent instanceof FCSplitLayoutDiv) ? parent : null);
@@ -286,6 +360,10 @@ public class AndroidHost extends FCHost implements Runnable
         return null;
     }
 
+    /*
+     * 查找预处理视图
+     * view 视图
+     */
     public FCView findPreviewsControl(FCView control)
     {
         if (control.allowPreviewsEvent())
@@ -309,6 +387,9 @@ public class AndroidHost extends FCHost implements Runnable
         return (int)(dpValue * scale + 0.5f);
     }
 
+    /*
+     * 获取客户端的大小
+     */
     public FCSize getClientSize()
     {
         FCSize size = new FCSize();
@@ -319,6 +400,9 @@ public class AndroidHost extends FCHost implements Runnable
         return size;
     }
 
+    /*
+     * 获取触摸位置
+     */
     public final FCPoint getTouchPoint()
     {
         FCPoint mp = m_mousePoint.clone();
@@ -335,6 +419,12 @@ public class AndroidHost extends FCHost implements Runnable
         return mp;
     }
 
+    /*
+     * 获取裁剪区域
+     * lpDestRect 裁剪区域
+     * lpSrc1Rect 区域1
+     * lpSrc2Rect 区域2
+     */
     public final int getIntersectRect(RefObject<FCRect> lpDestRect, RefObject<FCRect> lpSrc1Rect, RefObject<FCRect> lpSrc2Rect)
     {
         lpDestRect.argvalue.left = Math.max(lpSrc1Rect.argvalue.left, lpSrc2Rect.argvalue.left);
@@ -354,6 +444,9 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 获取缩放比例
+     */
     public double getScaleRate()
     {
         if (m_view != null)
@@ -372,6 +465,9 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 转换触摸信息
+     */
     public final int getTouches(MotionEvent event, FCTouchInfo touchInfo)
     {
         int pointerCount = event.getPointerCount();
@@ -402,6 +498,9 @@ public class AndroidHost extends FCHost implements Runnable
         return 1;
     }
 
+    /*
+     * 获取大小
+     */
     public final FCSize getSize()
     {
         if (m_native.allowScaleSize())
@@ -413,11 +512,21 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 获取合并区域
+     * lpDestRect 裁剪区域
+     * lpSrc1Rect 区域1
+     * lpSrc2Rect 区域2
+     */
     public final int getUnionRect(RefObject<FCRect> lpDestRect, RefObject<FCRect> lpSrc1Rect, RefObject<FCRect> lpSrc2Rect)
     {
         return 0;
     }
 
+    /*
+     * 秒表方法
+     * lpParam 参数
+     */
     public final int invokeThread(Object lpParam)
     {
         if (lpParam instanceof AndroidHost)
@@ -440,10 +549,18 @@ public class AndroidHost extends FCHost implements Runnable
         return 0;
     }
 
+    /*
+     * 特殊键是否按下
+     * key 按键
+     */
     public boolean isKeyPress(char ch){
         return false;
     }
 
+    /*
+     * 局部绘图
+     * rect 区域
+     */
     public final void invalidate(FCRect rect)
     {
         if (m_allowPartialPaint)
@@ -458,6 +575,9 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 全部绘图
+     */
     public final void invalidate()
     {
         m_clipBounds.clear();
@@ -465,6 +585,11 @@ public class AndroidHost extends FCHost implements Runnable
         m_view.invalidate();
     }
 
+    /*
+     * 跨线程调用
+     * view 视图
+     * args 参数
+     */
     public final void invoke(FCView control, Object args)
     {
         synchronized (this) {
@@ -479,6 +604,10 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 重绘方法
+     * g 绘图对象
+     */
     public final void onPaint(Canvas canvas)
     {
         try {
@@ -536,6 +665,9 @@ public class AndroidHost extends FCHost implements Runnable
         //this.invalidate();
     }
 
+    /*
+     * 秒表方法
+     */
     public final void onTimer()
     {
         if (m_viewVisible)
@@ -573,6 +705,9 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 粘贴数据
+     */
     public final String paste() {
         if(m_clipboard == null) {
             m_clipboard = (ClipboardManager) m_view.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -585,20 +720,33 @@ public class AndroidHost extends FCHost implements Runnable
         return "";
     }
 
+    /*
+     * 运行线程
+     */
     public void run()
     {
         invokeThread(this);
     }
 
+    /*
+     * 设置第二个点
+     * mp 坐标
+     */
     public final void setTouchPoint(FCPoint mp)
     {
         m_mousePoint = mp.clone();
     }
 
+    /*
+     * 显示提示框
+     * var1 字符串
+     * var2 坐标
+     */
     public void showToolTip(String var1, FCPoint var2)
     {
 
     }
+
 
     public final void startTimer(int timerID, int interval)
     {
@@ -614,7 +762,11 @@ public class AndroidHost extends FCHost implements Runnable
                 timer.m_interval = interval;
                 timer.m_tick = 0;
             } else
-            {
+            {/*
+             * 启动秒表
+             * timerID 秒表ID
+             * interval 间隔
+             */
                 AndroidTimer timer = new AndroidTimer();
                 timer.m_interval = interval;
                 timer.m_timerID = timerID;
@@ -623,6 +775,10 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 结束秒表
+     * timerID 秒表ID
+     */
     public final void stopTimer(int timerID)
     {
         synchronized (m_timers)
@@ -634,14 +790,23 @@ public class AndroidHost extends FCHost implements Runnable
         }
     }
 
+    /*
+     * 删除资源
+     */
     public void delete(){
         
     }
 
+    /*
+     * 获取光标
+     */
     public FCCursors getCursor(){
         return FCCursors.Arrow;
     }
 
+    /*
+     * 设置光标
+     */
     public void setCursor(FCCursors var1){
 
     }

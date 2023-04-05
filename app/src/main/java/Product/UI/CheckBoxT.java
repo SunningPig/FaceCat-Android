@@ -8,17 +8,33 @@ import facecat.topin.core.FCSize;
 import facecat.topin.core.FCTouchInfo;
 import facecat.topin.core.FCView;
 
+/**
+ * 复选框
+ */
 public class CheckBoxT extends FCCheckBox {
+    /**
+     * 构造函数
+     */
     public CheckBoxT() {
         FCSize cSize = new FCSize(40, 22);
         setButtonSize(cSize);
         setBorderColor(FCColor.None);
     }
 
+    /*
+    * 当前横向位置
+     */
     private int m_currentX = -1;
 
+    /*
+    * 秒表ID
+     */
     private int m_timerID = FCView.getNewTimerID();
 
+    /**
+     * 点击事件
+     * @param touchInfo 触摸信息
+     */
     @Override
     public void onClick(FCTouchInfo touchInfo) {
         boolean oldChecked = isChecked();

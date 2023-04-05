@@ -10,14 +10,23 @@ import facecat.topin.core.FCTran;
 import facecat.topin.core.RefObject;
 import topin.facecat.FaceCat.MainActivity;
 
+/**
+ * 我的颜色
+ */
 public class MyColor {
     public static String m_systemFont = "";
 
+    /*
+     * 设置系统字体
+     */
     public static void setSystemFont(String value)
     {
         m_systemFont = value;
     }
 
+    /*
+    * 获取系统字体
+     */
     public static String getSystemFont()
     {
         if (m_systemFont.length() == 0)
@@ -29,15 +38,17 @@ public class MyColor {
 
     public static int m_reverseColor = -1;
 
+    /*
+    * 设置反色
+     */
     public static void setReverseColor(int reverseColor)
     {
         m_reverseColor = reverseColor;
     }
 
-    /// <summary>
-    /// 获取搜索地址
-    /// </summary>
-    /// <returns></returns>
+    /*
+    * 获取反色
+     */
     public static int getReverseColor()
     {
         if (m_reverseColor == -1)
@@ -47,8 +58,14 @@ public class MyColor {
         return m_reverseColor;
     }
 
+    /*
+    * 上次的样式
+     */
     public int m_lastStyle = -1;
 
+    /*
+    * 默认样式
+     */
     public static int m_style = 0;
 
     public static long USERCOLOR = -200000000100L;
@@ -170,14 +187,26 @@ public class MyColor {
     public static long USERCOLOR116 = -200000000215L;
     public static long USERCOLOR117 = -200000000216L;
 
+    /*
+    * 自定义颜色
+     */
     public HashMap<Long, Long> m_userColors = new HashMap<Long, Long>();
 
+    /*
+    * 我的颜色
+     */
     public static HashMap<Long, Long> m_myColors = new HashMap<Long, Long>();
 
+    /*
+    * 设置样式
+     */
     public static void setStyle(int value){
         m_style = value;
     }
 
+    /**
+     * 创建颜色
+     */
     public void createColors(){
         m_userColors.clear();
         if (m_style == 1)
@@ -1076,6 +1105,11 @@ public class MyColor {
         m_gdiColors.clear();
     }
 
+    /**
+     * 获取用户颜色
+     * @param color
+     * @return
+     */
     public long getUserColor(long color)
     {
         if (m_lastStyle != m_style)
@@ -1101,5 +1135,8 @@ public class MyColor {
         return color;
     }
 
+    /**
+     * 系统颜色缓存
+     */
     public HashMap<Long, Integer> m_gdiColors = new HashMap<Long, Integer>();
 }

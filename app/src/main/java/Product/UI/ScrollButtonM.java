@@ -10,6 +10,9 @@ import facecat.topin.btn.*;
 import facecat.topin.div.*;
 import facecat.topin.scroll.*;
 
+/**
+ * 滚动按钮
+ */
 public class ScrollButtonM extends FCButton {
     /**
      创建透明按钮

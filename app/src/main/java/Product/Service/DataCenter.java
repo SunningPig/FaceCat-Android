@@ -21,13 +21,11 @@ public class DataCenter
 {
 	/**
 	 程序路径
-
 	 */
 	private static String m_appPath;
 
 	/**
 	 获取程序路径
-
 	 @return 程序路径
 	 */
 	public static String getAppPath()
@@ -39,7 +37,6 @@ public class DataCenter
 
 	/**
 	 获取用户目录
-
 	 @return 用户目录
 	 */
 	public static String getUserPath()
@@ -53,17 +50,10 @@ public class DataCenter
 
 	/**
 	 设置程序路径
-
 	 @param appPath 程序路径
 	 */
 	public static void setAppPath(String appPath)
 	{
 		m_appPath = appPath;
-	}
-
-
-	public static void startService()
-	{
-
 	}
 }

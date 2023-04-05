@@ -27,47 +27,113 @@ import Product.UI.*;
 import facecat.topin.core.*;
 import topin.facecat.FaceCat.MainActivity;
 
+/*
+* 绘图方法
+ */
 public class AndroidPaint extends FCPaint
 {
+    /*
+    * 图层
+     */
     private Canvas m_canvas;
 
+    /*
+     * 缓存图片
+     */
     private Bitmap m_cacheImage;
 
+    /*
+     * 是否双倍缓冲
+     */
     private boolean m_doubleBufferd = true;
 
+    /*
+     * 图片缓存
+     */
     public HashMap<String, Bitmap> m_images = new HashMap<String, Bitmap>();
 
+    /*
+     * 是否裁剪
+     */
     private boolean m_isClip;
 
+    /*
+     * 是否路径开始
+     */
     private boolean m_isPathStart;
 
+    /*
+     * 我的颜色
+     */
     public MyColor m_myColor = new MyColor();
 
+    /*
+     * 横向偏移
+     */
     protected int m_offsetX;
 
+    /*
+     * 纵向偏移
+     */
     protected int m_offsetY;
 
+    /*
+     * 透明度
+     */
     protected float m_opacity = 1;
 
+    /*
+    * 绘图对象
+     */
     public Paint m_paint;
 
+    /*
+    * 路径
+     */
     protected Path m_path;
 
+    /*
+     * 绘制区域
+     */
     protected FCRect m_pRect;
 
+    /*
+     * 资源路径
+     */
     protected String m_resourcePath;
 
+    /*
+     * 旋转角度
+     */
     protected int m_rotateAngle;
 
+    /*
+     * 横向缩放
+     */
     protected double m_scaleFactorX = 1;
 
+    /*
+     * 纵向缩放
+     */
     protected double m_scaleFactorY = 1;
 
+    /*
+     * 内部图层
+     */
     public Canvas m_viewCanvas;
 
+    /*
+     * 画布大小
+     */
     protected FCRect m_wRect;
 
-
+    /**
+     * 添加曲线
+     *
+     * @param rect 矩形区域
+     * @param startAngle 从 x 轴到弧线的起始点沿顺时针方向度量的角（以度为单位）
+     * @param sweepAngle 从 startAngle 参数到弧线的结束点沿顺时针方向度量的角（以度为单位）
+     */
     public void addArc(FCRect rect, float startAngle, float sweepAngle)
     {
         RectF andriodRect = new RectF(rect.left + m_offsetX, rect.top + m_offsetY, rect.right + m_offsetX, rect.bottom + m_offsetY);
@@ -78,7 +144,11 @@ public class AndroidPaint extends FCPaint
         m_isPathStart = false;
     }
 
-
+    /**
+     * 添加贝赛尔曲线
+     *
+     * @param points 坐标数组
+     */
     public void addBezier(FCPoint[] points)
     {
         int pointsLength = points.length;
@@ -99,12 +169,20 @@ public class AndroidPaint extends FCPaint
         m_isPathStart = false;
     }
 
-
+    /**
+     * 添加曲线
+     *
+     * @param points 点阵
+     */
     public void addCurve(FCPoint[] points)
     {
-        //
     }
 
+    /**
+     * 添加椭圆
+     *
+     * @param rect 矩形
+     */
     public void addEllipse(FCRect rect)
     {
         RectF andriodRect = new RectF(rect.left + m_offsetX, rect.top + m_offsetY, rect.right + m_offsetX, rect.bottom + m_offsetY);
@@ -115,6 +193,14 @@ public class AndroidPaint extends FCPaint
         m_isPathStart = false;
     }
 
+    /**
+     * 添加直线
+     *
+     * @param x1 第一个点的横坐标
+     * @param y1 第一个点的纵坐标
+     * @param x2 第二个点的横坐标
+     * @param y2 第二个点的纵坐标
+     */
     public void addLine(int x1, int y1, int x2, int y2)
     {
         float lx1 = x1 + m_offsetX;
@@ -136,6 +222,13 @@ public class AndroidPaint extends FCPaint
         m_path.lineTo(lx2, ly2);
     }
 
+    /**
+     * 添加扇形
+     *
+     * @param rect 矩形区域
+     * @param startAngle 从 x 轴到弧线的起始点沿顺时针方向度量的角（以度为单位）
+     * @param sweepAngle 从 startAngle 参数到弧线的结束点沿顺时针方向度量的角（以度为单位）
+     */
     public void addPie(FCRect rect, float startAngle, float sweepAngle)
     {
         RectF andriodRect = new RectF(rect.left + m_offsetX, rect.top + m_offsetY, rect.right + m_offsetX, rect.bottom + m_offsetY);
@@ -146,6 +239,11 @@ public class AndroidPaint extends FCPaint
         m_isPathStart = false;
     }
 
+    /**
+     * 添加矩形
+     *
+     * @param rect 区域
+     */
     public void addRect(FCRect rect)
     {
         RectF andriodRect = new RectF(rect.left + m_offsetX, rect.top + m_offsetY, rect.right + m_offsetX, rect.bottom + m_offsetY);
@@ -156,16 +254,33 @@ public class AndroidPaint extends FCPaint
         m_isPathStart = false;
     }
 
+    /**
+    * 添加图片
+     * @param key 键
+     * @param image 图片
+    */
     public void addSourceImage(String key, Bitmap image)
     {
         m_images.put(key, image);
     }
 
+    /**
+     * 添加文字
+     *
+     * @param text 文字
+     * @param font 字体
+     * @param rect 区域
+     */
     public void addText(String text, FCFont font, FCRect rect, int width)
     {
 
     }
 
+    /**
+     * 自动缩放矩形
+     *
+     * @param andriodRect 矩形
+     */
     protected void affectScaleFactor(RefObject<RectF> andriodRect)
     {
         if (m_scaleFactorX != -1 || m_scaleFactorY != -1)
@@ -177,6 +292,13 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /**
+     * 开始绘图
+     *
+     * @param hdc HDC
+     * @param wRect 窗体区域
+     * @param pRect 刷新区域
+     */
     public void beginPaint(int hDC, FCRect wRect, FCRect pRect)
     {
         int width = wRect.right - wRect.left;
@@ -213,12 +335,18 @@ public class AndroidPaint extends FCPaint
         m_resourcePath = null;
     }
 
+    /**
+     * 开始一段路径
+     */
     public void beginPath()
     {
         m_path = new Path();
         m_isPathStart = true;
     }
 
+    /**
+     * 清除缓存
+     */
     public void clearCaches()
     {
         HashMap<String, Bitmap> hashMap = new HashMap<String, Bitmap>();
@@ -230,16 +358,25 @@ public class AndroidPaint extends FCPaint
         m_images.clear();
     }
 
+    /**
+     * 裁剪路径
+     */
     public void clipPath()
     {
         m_canvas.clipPath(m_path);
     }
 
+    /**
+     * 闭合路径
+     */
     public void closeFigure()
     {
         m_path.close();
     }
 
+    /**
+     * 结束一段路径
+     */
     public void closePath()
     {
         m_path.reset();
@@ -247,6 +384,9 @@ public class AndroidPaint extends FCPaint
         m_isPathStart = false;
     }
 
+    /**
+     * 删除对象
+     */
     public void delete()
     {
         clearCaches();
@@ -257,6 +397,16 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /**
+     * 绘制弧线
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param rect 矩形区域
+     * @param startAngle 从 x 轴到弧线的起始点沿顺时针方向度量的角（以度为单位）
+     * @param sweepAngle 从 startAngle 参数到弧线的结束点沿顺时针方向度量的角（以度为单位）
+     */
     public void drawArc(long dwPenColor, float width, int style, FCRect rect, float startAngle, float sweepAngle)
     {
         RectF andriodRect = new RectF(rect.left + m_offsetX, rect.top + m_offsetY, rect.right + m_offsetX, rect.bottom + m_offsetY);
@@ -269,6 +419,14 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制贝赛尔曲线
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param points 坐标阵
+     */
     public void drawBezier(long dwPenColor, float width, int style, FCPoint[] points)
     {
         if (dwPenColor == FCColor.None) return;
@@ -290,11 +448,27 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制曲线
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param points 坐标阵
+     */
     public void drawCurve(long dwPenColor, float width, int style, FCPoint[] points)
     {
 
     }
 
+    /**
+     * 绘制椭圆
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param rect 矩形区域
+     */
     public void drawEllipse(long dwPenColor, float width, int style, FCRect rect)
     {
         if (dwPenColor == FCColor.None) return;
@@ -308,14 +482,34 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制椭圆
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param left 左侧坐标
+     * @param top 顶部左标
+     * @param right 右侧坐标
+     * @param bottom 底部坐标
+     */
     public void drawEllipse(long dwPenColor, float width, int style, int left, int top, int right, int bottom)
     {
         FCRect rect = new FCRect(left, top, right, bottom);
         drawEllipse(dwPenColor, width, style, rect);
     }
 
+    /**
+    * 角度
+     */
     public static int m_angle = 0;
 
+    /**
+     * 绘制图片
+     *
+     * @param imagePath 图片路径
+     * @param rect 绘制区域
+     */
     public void drawImage(String imagePath, FCRect rect)
     {
         String imageKey = imagePath;
@@ -348,6 +542,17 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /**
+     * 绘制直线
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param x1 第一个点的横坐标
+     * @param y1 第一个点的纵坐标
+     * @param x2 第二个点的横坐标
+     * @param y2 第二个点的纵坐标
+     */
     public void drawLine(long dwPenColor, float width, int style, int x1, int y1, int x2, int y2)
     {
         if (dwPenColor == FCColor.None) return;
@@ -368,11 +573,27 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制直线
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param x 第一个点坐标
+     * @param y 第二个点的坐标
+     */
     public void drawLine(long dwPenColor, float width, int style, FCPoint x, FCPoint y)
     {
         drawLine(dwPenColor, width, style, x.x, x.y, y.x, y.y);
     }
 
+    /**
+     * 绘制路径
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     */
     public void drawPath(long dwPenColor, float width, int style)
     {
         if (dwPenColor == FCColor.None) return;
@@ -382,6 +603,16 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制弧线
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param rect 矩形区域
+     * @param startAngle 从 x 轴到弧线的起始点沿顺时针方向度量的角（以度为单位）
+     * @param sweepAngle 从 startAngle 参数到弧线的结束点沿顺时针方向度量的角（以度为单位）
+     */
     public void drawPie(long dwPenColor, float width, int style, FCRect rect, float startAngle, float sweepAngle)
     {
         if (dwPenColor == FCColor.None) return;
@@ -395,6 +626,14 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制多边形
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param points 点的数组
+     */
     public void drawPolygon(long dwPenColor, float width, int style, FCPoint[] points)
     {
         if (dwPenColor == FCColor.None) return;
@@ -427,6 +666,14 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制大量直线
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param points 点集
+     */
     public void drawPolyline(long dwPenColor, float width, int style, FCPoint[] points)
     {
         if (dwPenColor == FCColor.None) return;
@@ -458,11 +705,30 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制矩形
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param rect 矩形区域
+     */
     public void drawRect(long dwPenColor, float width, int style, FCRect rect)
     {
         drawRect(dwPenColor, width, style, rect.left, rect.top, rect.right, rect.bottom);
     }
 
+    /**
+     * 绘制矩形
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param left 左侧坐标
+     * @param top 顶部左标
+     * @param right 右侧坐标
+     * @param bottom 底部坐标
+     */
     public void drawRect(long dwPenColor, float width, int style, int left, int top, int right, int bottom)
     {
         if (dwPenColor == FCColor.None) return;
@@ -475,6 +741,15 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制圆角矩形
+     *
+     * @param dwPenColor 颜色
+     * @param width 宽度
+     * @param style 样式
+     * @param rect 矩形区域
+     * @param cornerRadius 边角半径
+     */
     public void drawRoundRect(long dwPenColor, float width, int style, FCRect rect, int cornerRadius)
     {
         if (cornerRadius == 0)
@@ -496,6 +771,14 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /**
+     * 绘制文字
+     *
+     * @param text 文字
+     * @param dwPenColor 颜色
+     * @param font 字体
+     * @param rect 矩形区域
+     */
     public void drawText(String text, long dwPenColor, FCFont font, FCRect rect, int width)
     {
         if (dwPenColor == FCColor.None || text == null) return;
@@ -620,7 +903,14 @@ public class AndroidPaint extends FCPaint
         }
     }
 
-
+    /**
+     * 绘制文字
+     *
+     * @param text 文字
+     * @param dwPenColor 颜色
+     * @param font 字体
+     * @param rect 矩形区域
+     */
     public void drawText(String text, long dwPenColor, FCFont font, FCRectF rect, int width)
     {
         if (dwPenColor == FCColor.None || text == null) return;
@@ -745,11 +1035,22 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /**
+     * 绘制自动省略结尾的文字
+     *
+     * @param text 文字
+     * @param dwPenColor 颜色
+     * @param font 字体
+     * @param rect 矩形区域
+     */
     public void drawTextAutoEllipsis(String text, long dwPenColor, FCFont font, FCRect rect)
     {
         drawText(text, dwPenColor, font, rect, -1);
     }
 
+    /**
+     * 结束绘图
+     */
     public void endPaint()
     {
         m_paint.setPathEffect(null);
@@ -777,11 +1078,20 @@ public class AndroidPaint extends FCPaint
         m_resourcePath = "";
     }
 
+    /**
+     * 反裁剪区域
+     */
     public void excludeClipPath()
     {
         m_canvas.clipPath(m_path, Op.XOR);
     }
 
+    /**
+     * 填充椭圆
+     *
+     * @param dwPenColor 颜色
+     * @param rect 矩形区域
+     */
     public void fillEllipse(long dwPenColor, FCRect rect)
     {
         if (dwPenColor == FCColor.None) return;
@@ -795,12 +1105,29 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 填充椭圆
+     *
+     * @param dwPenColor 颜色
+     * @param left 左侧坐标
+     * @param top 顶部左标
+     * @param right 右侧坐标
+     * @param bottom 底部坐标
+     */
     public void fillEllipse(long dwPenColor, int left, int top, int right, int bottom)
     {
         FCRect newRect = new FCRect(left, top, right, bottom);
         fillEllipse(dwPenColor, newRect);
     }
 
+    /**
+     * 绘制渐变椭圆
+     *
+     * @param dwFirst 开始颜色
+     * @param dwSecond 结束颜色
+     * @param rect 矩形
+     * @param angle 角度
+     */
     public void fillGradientEllipse(long dwFirst, long dwSecond, FCRect rect, int angle)
     {
         if (dwFirst == FCColor.None) return;
@@ -819,6 +1146,14 @@ public class AndroidPaint extends FCPaint
         m_paint.setShader(null);
     }
 
+    /**
+     * 填充渐变路径
+     *
+     * @param dwFirst 开始颜色
+     * @param dwSecond 结束颜色
+     * @param points 点的集合
+     * @param angle 角度
+     */
     public void fillGradientPath(long dwFirst, long dwSecond, FCRect rect, int angle)
     {
         if (dwFirst == FCColor.None) return;
@@ -839,6 +1174,14 @@ public class AndroidPaint extends FCPaint
         m_paint.setShader(null);
     }
 
+    /**
+     * 绘制渐变的多边形
+     *
+     * @param dwFirst 开始颜色
+     * @param dwSecond 结束颜色
+     * @param points 点的集合
+     * @param angle 角度
+     */
     public void fillGradientPolygon(long dwFirst, long dwSecond, FCPoint[] points, int angle)
     {
         if (dwFirst == FCColor.None) return;
@@ -896,6 +1239,15 @@ public class AndroidPaint extends FCPaint
         m_paint.setShader(null);
     }
 
+    /**
+     * 绘制渐变矩形
+     *
+     * @param dwFirst 开始颜色
+     * @param dwSecond 结束颜色
+     * @param rect 矩形
+     * @param cornerRadius 圆角半径
+     * @param angle 角度
+     */
     public void fillGradientRect(long dwFirst, long dwSecond, FCRect rect, int cornerRadius, int angle)
     {
         if (dwFirst == FCColor.None) return;
@@ -923,6 +1275,11 @@ public class AndroidPaint extends FCPaint
         m_paint.setShader(null);
     }
 
+    /**
+     * 填充路径
+     *
+     * @param dwPenColor 颜色
+     */
     public void fillPath(long dwPenColor)
     {
         if (dwPenColor == FCColor.None) return;
@@ -932,6 +1289,14 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 绘制扇形
+     *
+     * @param dwPenColor 颜色
+     * @param rect 矩形区域
+     * @param startAngle 从 x 轴到弧线的起始点沿顺时针方向度量的角（以度为单位）
+     * @param sweepAngle 从 startAngle 参数到弧线的结束点沿顺时针方向度量的角（以度为单位）
+     */
     public void fillPie(long dwPenColor, FCRect rect, float startAngle, float sweepAngle)
     {
         if (dwPenColor == FCColor.None) return;
@@ -945,6 +1310,12 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 填充多边形
+     *
+     * @param dwPenColor 颜色
+     * @param points 点的数组
+     */
     public void fillPolygon(long dwPenColor, FCPoint[] points)
     {
         if (dwPenColor == FCColor.None) return;
@@ -977,6 +1348,12 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 填充矩形
+     *
+     * @param dwPenColor 颜色
+     * @param rect 矩形区域
+     */
     public void fillRect(long dwPenColor, FCRect rect)
     {
         if (dwPenColor == FCColor.None) return;
@@ -990,12 +1367,28 @@ public class AndroidPaint extends FCPaint
         m_paint.setAntiAlias(false);
     }
 
+    /**
+     * 填充矩形
+     *
+     * @param dwPenColor 颜色
+     * @param left 左侧坐标
+     * @param top 顶部左标
+     * @param right 右侧坐标
+     * @param bottom 底部坐标
+     */
     public void fillRect(long dwPenColor, int left, int top, int right, int bottom)
     {
         FCRect newRect = new FCRect(left, top, right, bottom);
         fillRect(dwPenColor, newRect);
     }
 
+    /**
+     * 填充圆角矩形
+     *
+     * @param dwPenColor 颜色
+     * @param rect 矩形区域
+     * @param cornerRadius 边角半径
+     */
     public void fillRoundRect(long dwPenColor, FCRect rect, int cornerRadius)
     {
         if (cornerRadius == 0)
@@ -1018,13 +1411,28 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /**
+     * 获取颜色
+     *
+     * @param dwPenColor 输入颜色
+     * @returns 输出颜色
+     */
     public long getColor(long dwPenColor)
     {
         return m_myColor.getUserColor(dwPenColor);
     }
 
+    /*
+    * 上次的样式
+     */
     public int m_lastStyle = -1;
 
+    /**
+     * 获取安卓的颜色
+     *
+     * @param dwPenColor 输入颜色
+     * @returns 输出颜色
+     */
     public int getAndriodColor(long dwPenColor)
     {
         if(m_opacity == 1 && m_myColor.m_gdiColors.containsKey(dwPenColor) && m_lastStyle == MyColor.m_style){
@@ -1053,6 +1461,12 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /**
+     * 获取要绘制的颜色
+     *
+     * @param dwPenColor 输入颜色
+     * @returns 输出颜色
+     */
     public long getPaintColor(long dwPenColor)
     {
         dwPenColor =  getColor(dwPenColor);
@@ -1177,6 +1591,10 @@ public class AndroidPaint extends FCPaint
         m_paint.setStyle(Style.FILL);
     }
 
+    /*
+     * 设置直线两端的样式
+     * @param lineCap 样式
+     */
     public void setLineCap(int startLineCap, int endLineCap)
     {
         if (endLineCap == 0)
@@ -1191,17 +1609,32 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /**
+     * 设置偏移
+     *
+     * @param mp 偏移坐标
+     */
     public void setOffset(FCPoint mp)
     {
         m_offsetX = mp.x;
         m_offsetY = mp.y;
     }
 
+    /**
+     * 设置透明度
+     *
+     * @param opacity 透明度
+     */
     public void setOpacity(float opacity)
     {
         m_opacity = opacity;
     }
 
+    /**
+     * 设置资源的路径
+     *
+     * @param resourcePath 资源的路径
+     */
     public void setResourcePath(String resourcePath)
     {
         m_resourcePath = resourcePath;
@@ -1355,7 +1788,13 @@ public class AndroidPaint extends FCPaint
         }
     }
 
+    /*
+    * 上次的字体
+     */
     public String m_lastFont = "Default";
 
+    /*
+    * 字体缓存
+     */
     public HashMap<String, Typeface> m_typeFaces = new HashMap<String, Typeface>();
 }

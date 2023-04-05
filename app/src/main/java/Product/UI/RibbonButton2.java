@@ -3,7 +3,13 @@ package Product.UI;
 import facecat.topin.btn.FCButton;
 import facecat.topin.core.*;
 
+/**
+ * 自定义按钮
+ */
 public class RibbonButton2 extends FCButton {
+    /**
+     * 构造函数
+     */
     public RibbonButton2(){
         setBorderColor(FCColor.None);
         setTextColor(MyColor.USERCOLOR84);
@@ -13,6 +19,11 @@ public class RibbonButton2 extends FCButton {
         setCornerRadius(4);
     }
 
+    /**
+     * 重绘方法
+     * @param paint 绘图对象
+     * @param clipRect 裁剪区域
+     */
     public void onPaint(FCPaint paint, FCRect clipRect){
         int width = getWidth(), height = getHeight();
         FCRect drawRect = new FCRect(1, 1, width - 1, height - 1);

@@ -54,10 +54,10 @@ public class RibbonButton extends FCButton {
 		return false;
 	}
 
-	/// <summary>
-	/// 获取要绘制的前景色
-	/// </summary>
-	/// <returns>前景色</returns>
+	/**
+	 * 获取要绘制的前景色
+	 * @return
+	 */
 	public long getPaintingTextColor() {
 		if (isEnabled()) {
 			return MyColor.USERCOLOR27;
@@ -66,11 +66,11 @@ public class RibbonButton extends FCButton {
 		}
 	}
 
-	/// <summary>
-	/// 重绘背景方法
-	/// </summary>
-	/// <param name="paint"></param>
-	/// <param name="clipRect"></param>
+	/**
+	 *  重绘背景方法
+	 * @param paint 绘图对象
+	 * @param clipRect 裁剪区域
+	 */
 	public void onPaintBackground(FCPaint paint, FCRect clipRect) {
 		FCNative inative = getNative();
 		int width = getWidth(), height = getHeight();

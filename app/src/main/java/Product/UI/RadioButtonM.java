@@ -12,12 +12,21 @@ import facecat.topin.core.FCSize;
 import facecat.topin.core.FCView;
 import facecat.topin.core.RefObject;
 
+/**
+ * 单选按钮
+ */
 public class RadioButtonM extends FCRadioButton {
+    /**
+     * 构造函数
+     */
     public RadioButtonM()
     {
         setButtonSize(new FCSize(25, 25));
     }
 
+    /*
+    * 图片
+     */
     private String m_image;
 
     /**
@@ -30,6 +39,12 @@ public class RadioButtonM extends FCRadioButton {
         m_image = image;
     }
 
+    /**
+     * 获取属性
+     * @param name 名称
+     * @param value 值
+     * @param type 类型
+     */
     @Override
     public void getAttribute(String name, RefObject<String> value, RefObject<String> type)
     {
@@ -42,6 +57,11 @@ public class RadioButtonM extends FCRadioButton {
         }
     }
 
+    /**
+     * 设置睡醒
+     * @param name
+     * @param value
+     */
     @Override
     public void setAttribute(String name, String value)
     {
@@ -54,6 +74,10 @@ public class RadioButtonM extends FCRadioButton {
         }
     }
 
+    /**
+     * 获取属性列表
+     * @return
+     */
     @Override
     public ArrayList<String> getAttributeNames()
     {
@@ -62,12 +86,22 @@ public class RadioButtonM extends FCRadioButton {
         return propertyNames;
     }
 
+    /**
+     * 重绘复选按钮
+     * @param paint
+     * @param clipRect
+     */
     @Override
     public void onPaintCheckButton(FCPaint paint, FCRect clipRect)
     {
 
     }
 
+    /**
+     * 重绘前景
+     * @param paint 绘图对象
+     * @param clipRect 裁剪区域
+     */
     @Override
     public void onPaintForeground(FCPaint paint, FCRect clipRect)
     {

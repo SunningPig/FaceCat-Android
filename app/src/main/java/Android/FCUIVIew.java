@@ -45,7 +45,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * 视图
+ */
 public class  FCUIVIew extends ViewGroup implements TextWatcher {
+    /**
+     * 构造函数
+     * @param context 上下文
+     */
     public FCUIVIew(Context context) {
         super(context);
         setWillNotDraw(false);
@@ -53,36 +60,72 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         setDrawingCacheEnabled(false);
     }
 
+    /*
+    * 是否允许滚动
+     */
     private boolean m_allowScroll = true;
 
+    /*
+     * 是否自动布局
+     */
     private boolean m_autoLayout = true;
 
+    /*
+     * 编辑中的文本框
+     */
     private FCTextBox m_editingTextBox;
 
+    /*
+     * 第一次点击
+     */
     private long m_firClick;
 
+    /*
+     * 对接设备
+     */
     private AndroidHost m_host = null;
 
+    /*
+     * 纵向滚动值
+     */
     private int m_scrollY;
 
+    /*
+     * 第二次点击
+     */
     private long m_secClick;
 
+    /*
+     * 缩放比例
+     */
     public double m_scaleFactor;
 
+    /*
+     * 历史输入框
+     */
     public ClearEditText m_textBox;
 
+    /*
+     * 获取设置
+     */
     public AndroidHost getHost() {
         return m_host;
     }
 
     private FCNative m_native = null;
 
+    /*
+     * 获取方法库
+     */
     public FCNative getNative() {
         return m_native;
     }
 
     private AndroidPaint m_paint = null;
 
+    /*
+     * 获取绘图对象
+     */
     public AndroidPaint getPaint() {
         return m_paint;
     }
@@ -91,18 +134,37 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         return m_host.getScaleRate();
     }
 
+    /*
+     * 是否允许滚动
+     */
     private boolean m_scrollEnabled = true;
 
+    /*
+     * 滚动视图
+     */
     private ScrollView m_scrollView;
 
+    /*
+     * 点击次数
+     */
     private int m_touchCount;
 
+    /*
+     * 设置是否允许滚动
+     */
     public void setAllowScroll(boolean allowScroll) {
         m_allowScroll = allowScroll;
     }
 
+    /*
+     * 上次焦点的视图
+     */
     public FCView m_lastFocusedView;
 
+    /**
+     * 设置滚动视图
+     * @param view 视图
+     */
     public void setScrollView(ScrollView view) {
         m_scrollView = view;
         m_scrollView.setOnTouchListener(new OnTouchListener() {
@@ -143,16 +205,32 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    /**
+     * 文字改变
+     * @param s 参数
+     */
     @Override
     public void afterTextChanged(Editable s) {
 
     }
 
+    /**
+     * 文字改变前
+     * @param s
+     * @param start
+     * @param count
+     * @param after
+     */
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
     }
 
+    /**
+     * 处理键盘事件
+     * @param event
+     * @return
+     */
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
@@ -161,6 +239,9 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         return super.dispatchKeyEvent(event);
     }
 
+    /**
+     * 删除资源
+     */
     public void delete() {
         if (m_host != null) {
             m_host.m_threadState = 2;
@@ -176,6 +257,10 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         m_scrollView = null;
     }
 
+    /**
+     * 隐藏本文框
+     * @param textBox 文本框
+     */
     public void hideTextBox(FCDiv textBox) {
         try {
             FCTextBox txt1 = (FCTextBox) ((textBox instanceof FCTextBox) ? textBox : null);
@@ -218,11 +303,17 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         }
     }
 
+    /*
+    * 上次点击次数
+     */
     public int m_lastClickCount;
 
+    /*
+    * 上次的坐标
+     */
     public FCPoint m_lastPoint = new FCPoint();
 
-    /*
+    /**
      * 手指按下
      * */
     private void onActionDown(MotionEvent event) {
@@ -415,6 +506,9 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         }
     }
 
+    /*
+    * 新的焦点视图
+     */
     public FCView m_newFocusedView;
 
     /**
@@ -481,7 +575,7 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         //cTouches.clear();
     }
 
-    /*
+    /**
      * 手指按下 -> 手指抬起
      * */
     private void onActionUp(MotionEvent event, boolean cancel) {
@@ -503,6 +597,10 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         }
     }
 
+    /**
+     * 绘图方法
+     * @param canvas
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         if (m_host != null) {
@@ -510,6 +608,9 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         }
     }
 
+    /**
+    * 加载视图
+     */
     public void onLoad() {
         m_host = new AndroidHost();
         m_native = new FCNative();
@@ -523,25 +624,40 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
 
     private UIXmlEx m_loadUI;
 
+    /*
+     * 获取XML对象
+     */
     public UIXmlEx getLoadUI() {
         return m_loadUI;
     }
 
+    /*
+     * 设置XML对象
+     */
     public void setLoadUI(UIXmlEx value) {
         m_loadUI = value;
     }
 
     private boolean m_uiIsLoaded = false;
 
+    /*
+     * 获取缩放比例
+     */
     public double getScaleFactor() {
         return m_scaleFactor;
     }
 
+    /*
+     * 设置缩放比例
+     */
     public void setScaleFactor(double scaleFactor) {
         m_scaleFactor = scaleFactor;
         resetLayout();
     }
 
+    /**
+     * 重置布局
+     */
     public void resetLayout() {
         if (m_native != null) {
             if (m_scaleFactor == 0) {
@@ -577,6 +693,14 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         }
     }
 
+    /**
+     * 加载布局
+     * @param changed
+     * @param left
+     * @param top
+     * @param right
+     * @param bottom
+     */
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         if(changed) {
@@ -584,6 +708,13 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         }
     }
 
+    /**
+     * 文本改变事件
+     * @param s
+     * @param start
+     * @param before
+     * @param count
+     */
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         String allTextInTextBox = s.toString();
         if (m_editingTextBox != null) {
@@ -591,6 +722,11 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         }
     }
 
+    /**
+     * 触摸事件
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
@@ -619,9 +755,16 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         return true;
     }
 
+    /**
+     * 窗体高度
+     */
     private int m_WindowHeight = 0;
 
     ViewTreeObserver.OnGlobalLayoutListener onGlobalLayoutListener = null;
+
+    /**
+     * 软键盘监听
+     */
     public void addOnSoftKeyBoardVisibleListener() {
         if(onGlobalLayoutListener == null) {
             final View decorView = MainActivity.m_mainActivity.getWindow().getDecorView();
@@ -652,6 +795,10 @@ public class  FCUIVIew extends ViewGroup implements TextWatcher {
         }
     }
 
+    /**
+     * 显示文本框
+     * @param textBox 文本框
+     */
     public void ShowTextBox(FCTextBox textBox) {
         try {
             addOnSoftKeyBoardVisibleListener();

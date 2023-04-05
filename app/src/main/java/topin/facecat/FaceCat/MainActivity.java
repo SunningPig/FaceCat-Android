@@ -19,7 +19,15 @@ import java.io.InputStream;
 
 import static android.content.pm.PackageManager.PERMISSION_DENIED;
 
+/*
+* 主视图
+ */
 public class MainActivity extends AppCompatActivity{
+    /**
+     * 读取XML
+     * @param FileId
+     * @return
+     */
     private String getXMlString(int FileId) {
         InputStream in = getResources().openRawResource(FileId);
         DataInputStream din = null;
@@ -41,8 +49,15 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
+    /*
+    * 主视图静态对象
+     */
     public static MainActivity m_mainActivity;
 
+    /**
+     * 创建视图
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +78,6 @@ public class MainActivity extends AppCompatActivity{
         }
         FCClientSocket.noThread = false;
 
-        DataCenter.startService();
         FCUIVIew view = new FCUIVIew(getBaseContext());
         view.setAllowScroll(false);
         view.onLoad();
@@ -76,12 +90,17 @@ public class MainActivity extends AppCompatActivity{
         mainFrame.getNative().invalidate();
     }
 
+    /**
+     * 回退
+     */
     public void onBackPressed(){
         moveTaskToBack(true);
     }
 
-    private String m_version = "";
-
+    /**
+     * 配置改变
+     * @param newConfig
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         // TODO Auto-generated method stub

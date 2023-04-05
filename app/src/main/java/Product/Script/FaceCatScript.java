@@ -8,7 +8,9 @@ import facecat.topin.chart.*;
 import facecat.topin.xml.*;
 import facecat.topin.core.*;
 
-
+/** 脚本信息
+*
+ */
 public class FaceCatScript implements FCUIScript
 {
     /*
@@ -44,7 +46,7 @@ public class FaceCatScript implements FCUIScript
     private FCUIXml m_xml;
 
     /*
-    获取或设置
+    获取或设置XML对象
      */
     public FCUIXml getXml()
     {
@@ -55,7 +57,7 @@ public class FaceCatScript implements FCUIScript
         m_xml = value;
     }
 
-    /*
+    /**
     调用方法
      */
     public String callFunction(String function)
@@ -89,7 +91,6 @@ public class FaceCatScript implements FCUIScript
 
     /**
      销毁方法
-
      */
     public void delete()
     {
@@ -103,7 +104,7 @@ public class FaceCatScript implements FCUIScript
         }
     }
 
-    /*
+    /**
     获取属性
      */
     public String getAttribute(String name, String propertyName)
@@ -125,7 +126,7 @@ public class FaceCatScript implements FCUIScript
         return null;
     }
 
-    /*
+    /**
     获取调用者
      */
     public String getSender()
@@ -141,7 +142,7 @@ public class FaceCatScript implements FCUIScript
         return null;
     }
 
-    /*
+    /**
     设置属性
      */
     public void setAttribute(String name, String propertyName, String propertyValue)
@@ -156,7 +157,7 @@ public class FaceCatScript implements FCUIScript
         }
     }
 
-    /*
+    /**
     设置脚本
      */
     public void setText(String text)
